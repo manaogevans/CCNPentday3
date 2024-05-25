@@ -123,12 +123,12 @@ config t
 int lo 0
 ip add 3.3.3.3 255.255.255.255
 router ospf 1
-router-id _______
-network _______ _______ area __
-network _______ _______ area __
-network _______ _______ area __
+router-id 3.3.3.3
+network 3.3.3.3 0.0.0.0 area 0
+network 10.1.1.4 0.0.0.3 area 34
+network 10.1.1.8 0.0.0.3 area 0
 do sh ip protocol
-@@2:
+@@R2:
 config t
 int lo 0
 ip add 2.2.2.2 255.255.255.255
@@ -153,8 +153,19 @@ int lo 0
 ip add 1.1.1.1 255.255.255.255
 router ospf 1
 router-id 1.1.1.1
-network _______ _______ area __
-network _______ _______ area __
+network 1.1.1.1 0.0.0.0 area 12
+network 10.1.1.0 0.0.0.0 area 12
+network 10.1.1.1 0.0.0.3 area 12
+
+#OSPF EIGRP ROUTER REGISTRATION:E02
+@R4:
+config t
+router eigrp 100
+redistribute ospf 1 metric 10000 100 255 1 1500
+exit
+
+router ospf 1
+redistribute eigrp 100 subnets
 
 
 do sh ip protocol
