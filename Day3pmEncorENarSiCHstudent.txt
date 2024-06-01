@@ -24,7 +24,7 @@ config t
 hostname D2
 no logging console
 no ip domain-lookup
-spanning-tree vlan ______ root _____________
+spanning-tree vlan vlan 1-100 root secondary
 
  
 task6.2: encorCCNP: trunk lahat:
@@ -1422,12 +1422,12 @@ R1:
 44.44.44.44 thru:
 
 The power of ASPATH, you can tell other routers to use other ISPs  (not yours!) to be
-routed: in this case, ISP1 and ISP3 will tell R1 to use ISP2 a lot!!!
+routed: in this case, ISP1 and ISP3 will tell R1 to use ISP2 for all internet traffic!!!
 
 @ISP1
 	config t
 		route-map ASPATH permit 10
-			set as-path prepend 45 45 45 45 45
+			set as-path prepend 45 45 45
 			exit
 		router bgp 45
 			neighbor 208.8.8.1 route-map ASPATH OUT
